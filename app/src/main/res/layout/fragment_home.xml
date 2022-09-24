@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.HomeFragment">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bc_image"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="@drawable/flower_valley_demo11">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_search"
+        android:layout_toRightOf="@id/home_text_valley"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/home_text_valley"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/flower_valley"
+        android:textColor="@color/white"
+        android:textSize="25sp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:id="@+id/card_view"
+        android:layout_below="@id/bc_image"
+        android:background="#000000"
+        app:cardCornerRadius="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/image_slider"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            app:iss_period="1000"
+            app:iss_delay="0"
+            app:iss_corner_radius="18">
+
+        </com.denzcoskun.imageslider.ImageSlider>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/four_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:layout_below="@id/card_view"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/card_view"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/flower_icon" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/third_flower_icon" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/gift" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/teddy_bear" />
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/popular"
+       android:layout_below="@id/card_view"
+       android:layout_marginTop="20dp"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp">
+
+       <androidx.appcompat.widget.AppCompatTextView
+           android:id="@+id/popular_items"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:fontFamily="@font/poppins_medium"
+           android:text="@string/popular_items"
+           android:textSize="20sp" />
+
+       <androidx.appcompat.widget.AppCompatTextView
+           android:id="@+id/view_all"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="140dp"
+           android:fontFamily="@font/poppins_medium"
+           android:text="@string/view_all"
+           android:textColor="#CD5858"
+           android:textSize="20sp" />
+
+   </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/four_card_view"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
