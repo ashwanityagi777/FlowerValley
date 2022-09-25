@@ -29,4 +29,24 @@
     <string name="email_address_hint">Email Address</string>
     <string name="verify">Verify</string>
     <string name="jannien_flower_bouquet">Jannien Flower Bouquet</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="cart">Cart</string>
+    <string name="profile">Profile</string>
+    <string name="cart_items">Cart Items</string>
+    <string name="angle_flower_bouquet">Angle Flower Bouquet</string>
+    <string name="_576_00">₹576.00</string>
+    <string name="quantity">Quantity:</string>
+    <string name="angle_flower_bouquet1">Angle Flower Bouquet</string>
+    <string name="_576_00_">₹576.00</string>
+    <string name="price_details">Price Details</string>
+    <string name="quantity_">Quantity:</string>
+    <string name="checkout"><![CDATA[Checkout -->]]></string>
+    <string name="_50_00">₹50.00</string>
+    <string name="delivery_charges">Delivery Charges</string>
+    <string name="sign_in_">Sign in</string>
+    <string name="address">Address</string>
+    <string name="add_information">Add Information</string>
+    <string name="nrc_dellhi">NRC Dellhi</string>
+    <string name="utter_pradesh_india">Utter Pradesh India</string>
 </resources>

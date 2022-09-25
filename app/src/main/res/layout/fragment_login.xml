@@ -91,7 +91,7 @@
                 app:boxBackgroundColor="@color/white"
                 app:startIconDrawable="@drawable/ic_call">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,14 +100,45 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_login"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/login_button"
                 android:text="@string/login"
-                android:textColor="@color/green_700" />
+                android:textColor="@color/white" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/don_have_acc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_login"
+                    android:layout_marginTop="40dp"
+                    android:text="Don't have an account?"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/sign_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_login"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="38dp"
+                    android:text="@string/sign_in_"
+                    android:textColor="@color/green_500"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 

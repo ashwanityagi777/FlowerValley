@@ -27,21 +27,23 @@ Fragment fragment;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-     bottomNavigationView =findViewById(R.id.bottom_navigation);
         replaceFragment(new LoginFragment());
 
+        bottomNavigationView=findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+
+                switch (item.getItemId()){
                     case R.id.home:
                         replaceFragment(new HomeFragment());
-                        break;
 
+                        break;
                     case R.id.favorite:
                         replaceFragment(new FavoriteFragment());
+
                         break;
                     case R.id.cart:
                         replaceFragment(new CartFragment());
@@ -49,14 +51,16 @@ Fragment fragment;
                     case R.id.person:
                         replaceFragment(new ProfileFragment());
                         break;
+
                 }
 
                 return true;
             }
         });
+
+
     }
     void replaceFragment(Fragment fragment){
-        MainActivity.bottomNavigationView.setVisibility(View.GONE);
         FragmentManager fragmentManager =getSupportFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_Layout,fragment);

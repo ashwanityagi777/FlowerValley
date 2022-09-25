@@ -93,12 +93,12 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_verify"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/verify"
-                android:textColor="@color/green_700" />
+                android:background="@drawable/login_button"
+                android:textColor="@color/white" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
