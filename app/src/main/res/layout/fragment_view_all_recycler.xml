@@ -14,12 +14,14 @@
         android:layout_marginTop="16dp">
 
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/back_icon_view_all"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="12dp"
-            android:src="@drawable/ic_back" />
+
+            android:background="@drawable/ic_back" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"

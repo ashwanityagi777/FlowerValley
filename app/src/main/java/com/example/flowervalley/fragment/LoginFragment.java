@@ -128,6 +128,7 @@ public class LoginFragment extends Fragment {
                                 OTPVerificationFragment otpVerificationFragment = new OTPVerificationFragment();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("token", s);
+                                bundle.putString("mobile", mobile);
                                 otpVerificationFragment.setArguments(bundle);
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 FragmentTransaction ft = fragmentManager.beginTransaction();

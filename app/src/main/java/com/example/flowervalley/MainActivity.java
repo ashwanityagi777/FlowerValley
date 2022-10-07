@@ -17,12 +17,15 @@ import com.example.flowervalley.fragment.HomeFragment;
 import com.example.flowervalley.fragment.LoginFragment;
 import com.example.flowervalley.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity {
-   public static BottomNavigationView bottomNavigationView;
 
-Fragment fragment;
-    @SuppressLint("NonConstantResourceId")
+    public static BottomNavigationView bottomNavigationView;
+    Fragment fragment;
+    private SharedPreferenceManager sharedPreferenceManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,7 @@ Fragment fragment;
 
         bottomNavigationView=findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
 
 
             @Override
@@ -58,15 +62,25 @@ Fragment fragment;
             }
         });
 
+        FirebaseApp.initializeApp(getApplicationContext());
+
+        sharedPreferenceManager = new SharedPreferenceManager(this);
+
+        if (sharedPreferenceManager.getName() != null) {
+            replaceFragment(new HomeFragment());
+        } else {
+            replaceFragment(new LoginFragment());
+        }
+
 
     }
+
     void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager =getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_Layout,fragment);
         fragmentTransaction.commit();
-
     }
+
 }
-
-

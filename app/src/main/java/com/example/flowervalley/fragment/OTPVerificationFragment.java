@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.flowervalley.MainActivity;
 import com.example.flowervalley.R;
+import com.example.flowervalley.SharedPreferenceManager;
 import com.example.flowervalley.Utils;
 import com.example.flowervalley.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +23,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
@@ -68,7 +68,7 @@ public class OTPVerificationFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("users").child(mobile);
+
 
         FirebaseAuth.getInstance().getFirebaseAuthSettings().forceRecaptchaFlowForTesting(false);
 
@@ -103,9 +103,9 @@ public class OTPVerificationFragment extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
 
-                            Utils.replaceFragment(new HomeFragment(), getActivity());
 
-                            FirebaseUser firebaseUser = task.getResult().getUser();
+
+
                             Log.i(TAG, "verifyOtp: Name " + name);
                             Log.i(TAG, "verifyOtp: Email " + email);
                             Log.i(TAG, "verifyOtp: Mobile " + mobile);
@@ -114,11 +114,47 @@ public class OTPVerificationFragment extends Fragment {
                             if (name != null && email != null && mobile != null) {
                                 User user = new User("" + name, "" + email, "" + mobile);
 
+                                databaseReference = firebaseDatabase.getReference("users").child(mobile);
+
                                 databaseReference.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         databaseReference.setValue(user);
                                         Log.i(TAG, "onDataChange: " + snapshot);
+                                        if (snapshot.exists()){
+                                            Snackbar.make(btnVerify,"Registration Successfully",Snackbar.LENGTH_SHORT).show();
+                                            Utils.replaceFragment(new LoginFragment(), getActivity());
+                                        }
+                                        else {
+                                            Snackbar.make(btnVerify,"Something went Wrong",Snackbar.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.e(TAG, "onCancelled: " + error);
+                                    }
+                                });
+                            }else {
+                                Toast.makeText(getContext(), "From Login Fragment", Toast.LENGTH_SHORT).show();
+                                databaseReference = firebaseDatabase.getReference("users").child(mobile);
+                                databaseReference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        Log.i(TAG, "Login onDataChange Name: " + snapshot.child("name").getValue().toString());
+                                        Log.i(TAG, "Login onDataChange Email: " + snapshot.child("email").getValue().toString());
+                                        Log.i(TAG, "Login onDataChange Mobile: " + snapshot.child("mobile").getValue().toString());
+
+
+                                        SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(getContext());
+                                        sharedPreferenceManager.setName(snapshot.child("name").getValue().toString());
+                                        sharedPreferenceManager.setEmail(snapshot.child("email").getValue().toString());
+                                        sharedPreferenceManager.setPhone(snapshot.child("mobile").getValue().toString());
+
+                                        Utils.replaceFragment(new HomeFragment(), getActivity());
+
                                     }
 
                                     @Override

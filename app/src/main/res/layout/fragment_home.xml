@@ -15,13 +15,6 @@
 
     </androidx.appcompat.widget.AppCompatImageView>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_search"
-        android:layout_toRightOf="@id/home_text_valley"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="40dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/home_text_valley"
@@ -35,6 +28,35 @@
         android:textSize="25sp">
 
     </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/search_round_bg"
+        android:iconifiedByDefault="false"
+        android:layoutDirection="rtl"
+        android:searchIcon="@null"
+        android:theme="@style/ThemeOverlay.SearchView"
+        app:closeIcon="@drawable/ic_baseline_close_24"
+        app:defaultQueryHint="Red Rose"
+        app:searchIcon="@drawable/ic_search" />
+
+    <ListView
+        android:id="@+id/search_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_bar"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:divider="@color/white"
+        android:dividerHeight="2dp"
+        android:visibility="gone" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

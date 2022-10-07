@@ -84,7 +84,6 @@
         android:layout_marginRight="16dp"
         android:layout_gravity="center"/>
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

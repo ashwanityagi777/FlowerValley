@@ -41,10 +41,10 @@ public class ViewAllFlowerAdapter extends RecyclerView.Adapter<ViewAllFlowerAdap
 
         FlowerRecyclerModal flowerRecyclerModal=arrFlower.get(position);
 
-        holder.flower_name.setText(""+flowerRecyclerModal.getFlowername());
-        holder.flower_price.setText(""+flowerRecyclerModal.getPrice());
+        holder.flower_name.setText(""+flowerRecyclerModal.getFlowerName());
+        holder.flower_price.setText(""+flowerRecyclerModal.getFlowerPrice());
         Glide.with(context)
-                .load(flowerRecyclerModal.getFlowerURL())
+                .load(flowerRecyclerModal.getFlowerImageUrl())
                 .into(holder.flower_img);
 
     }

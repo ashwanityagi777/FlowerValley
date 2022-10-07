@@ -18,4 +18,19 @@
         <item name="cornerSize">50%</item>
 
     </style>
+
+    <style name="ThemeOverlay.SearchView" parent="Theme.FlowerValley">
+        <!-- Text color -->
+        <item name="android:editTextColor">@color/green_700</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:hint">Red Rose</item>
+        <item name="hintTextColor">@color/green_700</item>
+        <item name="android:textSize">16sp</item>
+        <!-- Hint text color -->
+        <item name="android:textColorHint">@color/green_700</item>
+    </style>
+
+
+
+
 </resources>
