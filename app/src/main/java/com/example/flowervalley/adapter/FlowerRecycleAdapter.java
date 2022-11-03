@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.flowervalley.BottomMenuHelper;
-import com.example.flowervalley.FlowerDetailFragment;
+import com.example.flowervalley.fragment.FlowerDetailFragment;
 import com.example.flowervalley.MainActivity;
 import com.example.flowervalley.R;
 import com.example.flowervalley.SharedPreferenceManager;
@@ -56,7 +56,7 @@ public class FlowerRecycleAdapter extends RecyclerView.Adapter<FlowerRecycleAdap
 
 
             holder.flower_name.setText(flowerRecyclerModel.getFlowerName());
-            holder.flower_price.setText(flowerRecyclerModel.getFlowerPrice());
+            holder.flower_price.setText(""+flowerRecyclerModel.getFlowerPrice());
 
             Glide.with(context)
                     .load(flowerRecyclerModel.getFlowerImageUrl())
@@ -71,7 +71,7 @@ public class FlowerRecycleAdapter extends RecyclerView.Adapter<FlowerRecycleAdap
 
 
                     sharedPreferenceManager.setItemCounter(count++);
-                    BottomMenuHelper.showBadge(context, MainActivity.bottomNavigationView, R.id.cart, "" + sharedPreferenceManager.getItemCounter());
+                    Utils.addToCart(context,flowerRecyclerModel.getFlowerId(), flowerRecyclerModel.getFlowerName(), flowerRecyclerModel.getFlowerPrice(), flowerRecyclerModel.getFlowerImageUrl(), sharedPreferenceManager.getPhone());
 
 
                 }
@@ -84,7 +84,7 @@ public class FlowerRecycleAdapter extends RecyclerView.Adapter<FlowerRecycleAdap
                     Bundle bundle = new Bundle();
                     bundle.putString("flower_id", flowerRecyclerModel.getFlowerId());
                     bundle.putString("flower_name",flowerRecyclerModel.getFlowerName());
-                    bundle.putString("flower_price",flowerRecyclerModel.getFlowerPrice());
+                    bundle.putInt("flower_price",flowerRecyclerModel.getFlowerPrice());
                     bundle.putString("flower_about",flowerRecyclerModel.getFlowerDescription());
                     bundle.putString("flower_image",flowerRecyclerModel.getFlowerImageUrl());
                     fragment.setArguments(bundle);

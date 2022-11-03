@@ -2,6 +2,14 @@ package com.example.flowervalley.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,17 +17,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+
 import com.example.flowervalley.Banner;
 import com.example.flowervalley.MainActivity;
 import com.example.flowervalley.R;
@@ -35,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -49,6 +54,20 @@ public class HomeFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private SearchView searchView;
     private ListView searchFlowerList;
+    private RelativeLayout mainLayout;
+
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+
+        }
+        MainActivity.bottomNavigationView.setVisibility(View.VISIBLE);
+    }
 
 
     @Override
@@ -56,16 +75,20 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        MainActivity.bottomNavigationView.setVisibility(View.VISIBLE);
+
 
         preferenceManager = new SharedPreferenceManager(getContext());
         ArrayList<SlideModel> slideModels = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = firebaseDatabase.getReference("banners");
 
+        view_all = view.findViewById(R.id.view_all);
+        searchView = view.findViewById(R.id.search_bar);
+        searchFlowerList = view.findViewById(R.id.search_list);
+        mainLayout=view.findViewById(R.id.main_layout);
         imageSlider = view.findViewById(R.id.image_slider);
         imageSlider.setImageList(slideModels);
-
+        arrFlower = new ArrayList<>();
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,9 +109,8 @@ public class HomeFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        arrFlower = new ArrayList<>();
 
-        recyclerView.setAdapter(new FlowerRecycleAdapter(getContext(), arrFlower));
+
         firebaseDatabase.getReference("flowers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,9 +130,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-        view_all = view.findViewById(R.id.view_all);
-        searchView = view.findViewById(R.id.search_bar);
-        searchFlowerList = view.findViewById(R.id.search_list);
 
 
         view_all.setOnClickListener(new View.OnClickListener() {
@@ -128,14 +147,20 @@ public class HomeFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //flower = flowers.get(i);
                 Log.i(TAG, "onItemSelected: " + arrFlower.get(i).getFlowerId());
-            }
 
+            }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.e(TAG, "onNothingSelected:");
+                Log.e(TAG, "onNothingSelected:" );
             }
         });
+        searchFlowerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i(TAG, "onItemClick: " + arrFlower.get(i).getFlowerId());
 
+            }
+        });
         searchView.setQueryHint("Red Rose");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -148,11 +173,12 @@ public class HomeFragment extends Fragment {
                 }
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 Log.i(TAG, "onQueryTextChange: " + newText);
                 searchFlowerList.setVisibility(View.VISIBLE);
+                mainLayout.setVisibility(View.GONE);
+                MainActivity.bottomNavigationView.setVisibility(View.GONE);
                 flowerArrayAdapter.getFilter().filter(newText);
                 return false;
             }
@@ -163,9 +189,14 @@ public class HomeFragment extends Fragment {
             public boolean onClose() {
                 searchView.onActionViewCollapsed();
                 searchFlowerList.setVisibility(View.GONE);
+                MainActivity.bottomNavigationView.setVisibility(View.VISIBLE);
+
+                mainLayout.setVisibility(View.VISIBLE);
                 return false;
             }
         });
+
+        Utils.getCartItemCount(preferenceManager.getPhone(), getContext());
 
         return view;
     }
