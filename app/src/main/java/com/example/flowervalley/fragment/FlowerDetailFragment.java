@@ -1,4 +1,4 @@
-package com.example.flowervalley;
+package com.example.flowervalley.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.flowervalley.MainActivity;
+import com.example.flowervalley.R;
+import com.example.flowervalley.Utils;
 import com.example.flowervalley.fragment.HomeFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,7 +93,7 @@ public class FlowerDetailFragment extends Fragment {
 
             });
         } else {
-            Toast.makeText(getContext(), "Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please try again.",Toast.LENGTH_SHORT).show();
         }
 
         return view;

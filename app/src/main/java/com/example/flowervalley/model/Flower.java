@@ -1,8 +1,6 @@
 package com.example.flowervalley.model;
 
-public class FlowerRecyclerModal {
-
-
+public class Flower {
     private String flowerId;
     private String flowerName;
     private int flowerPrice;
@@ -10,12 +8,11 @@ public class FlowerRecyclerModal {
     private String flowerDescription;
     private String flowerImageUrl;
 
-
-    public FlowerRecyclerModal(){
-
+    public Flower() {
+        //Required constructor
     }
 
-    public FlowerRecyclerModal(String flowerId, String flowerName, int flowerPrice, String flowerQuantity, String flowerDescription, String flowerImageUrl) {
+    public Flower(String flowerId, String flowerName, int flowerPrice, String flowerQuantity, String flowerDescription, String flowerImageUrl) {
         this.flowerId = flowerId;
         this.flowerName = flowerName;
         this.flowerPrice = flowerPrice;
@@ -72,10 +69,8 @@ public class FlowerRecyclerModal {
         this.flowerImageUrl = flowerImageUrl;
     }
 
-
     @Override
     public String toString() {
         return flowerName;
     }
-
 }

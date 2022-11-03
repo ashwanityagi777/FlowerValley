@@ -16,52 +16,92 @@ import com.example.flowervalley.model.FlowerRecyclerModal;
 
 import java.util.ArrayList;
 
+import android.os.Bundle;
+
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
+
+import com.example.flowervalley.SharedPreferenceManager;
+import com.example.flowervalley.Utils;
+import com.example.flowervalley.fragment.FlowerDetailFragment;
+import com.example.flowervalley.model.Flower;
+
 public class ViewAllFlowerAdapter extends RecyclerView.Adapter<ViewAllFlowerAdapter.ViewHolder> {
+        SharedPreferenceManager sharedPreferenceManager;
+        ArrayList<FlowerRecyclerModal> list;
+        Context context;
+        int count = 1;
 
-    ArrayList<FlowerRecyclerModal> arrFlower;
+        public ViewAllFlowerAdapter(ArrayList<FlowerRecyclerModal> list, Context context) {
+            this.list = list;
+            this.context = context;
+        }
 
-    Context context;
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.flower_cart_recycler_view, parent, false);
 
-    public ViewAllFlowerAdapter(ArrayList<FlowerRecyclerModal> arrFlower, Context context) {
-        this.arrFlower=arrFlower;
-        this.context=context;
-    }
+            ViewHolder viewHolder=new ViewHolder(view);
+            return new ViewHolder(view);
+        }
 
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            FlowerRecyclerModal flower = list.get(position);
+            holder.flowerName.setText(""+flower.getFlowerName());
+            holder.flowerPrice.setText(""+flower.getFlowerPrice());
+            Glide.with(context)
+                    .load(flower.getFlowerImageUrl())
+                    .into(holder.flowerImage);
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.flower_design_item,parent,false);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
-    }
+            sharedPreferenceManager = new SharedPreferenceManager(context);
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewAllFlowerAdapter.ViewHolder holder, int position) {
+            holder.addItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        FlowerRecyclerModal flowerRecyclerModal=arrFlower.get(position);
+                    sharedPreferenceManager.setItemCounter(count++);
+                    Utils.addToCart(context,flower.getFlowerId(), flower.getFlowerName(), flower.getFlowerPrice(), flower.getFlowerImageUrl(), sharedPreferenceManager.getPhone());
+                }
+            });
 
-        holder.flower_name.setText(""+flowerRecyclerModal.getFlowerName());
-        holder.flower_price.setText(""+flowerRecyclerModal.getFlowerPrice());
-        Glide.with(context)
-                .load(flowerRecyclerModal.getFlowerImageUrl())
-                .into(holder.flower_img);
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FlowerDetailFragment fragment = new FlowerDetailFragment();
+                    Bundle bundle = new Bundle();
 
-    }
+                    bundle.putString("flower_id", flower.getFlowerId());
+                    bundle.putString("flower_name", flower.getFlowerName());
+                    bundle.putInt("flower_price", flower.getFlowerPrice());
+                    bundle.putString("flower_about", flower.getFlowerDescription());
+                    bundle.putString("flower_image", flower.getFlowerImageUrl());
+                    fragment.setArguments(bundle);
+                    Utils.replaceFragment(fragment, (FragmentActivity) context);
+                }
+            });
+        }
 
-    @Override
-    public int getItemCount() { return arrFlower.size();}
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
 
+        static class ViewHolder extends RecyclerView.ViewHolder {
+            AppCompatTextView flowerName, flowerPrice;
+            AppCompatImageView flowerImage;
+            CardView cardView;
+            AppCompatImageButton addItem;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        AppCompatImageView flower_img;
-        AppCompatTextView flower_name, flower_price;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            flower_img=itemView.findViewById(R.id.flower_image);
-            flower_name=itemView.findViewById(R.id.flower_name1);
-            flower_price=itemView.findViewById(R.id.flower_price);
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                cardView = itemView.findViewById(R.id.card);
+                flowerName = itemView.findViewById(R.id.flower_name);
+                flowerPrice = itemView.findViewById(R.id.flower_price);
+                flowerImage = itemView.findViewById(R.id.flower_image);
+                addItem = itemView.findViewById(R.id.btn_add_item);
+            }
         }
     }
-}
